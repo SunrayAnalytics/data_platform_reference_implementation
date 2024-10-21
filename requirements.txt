@@ -1,0 +1,5 @@
+# TODO: Use constraints file in the platform
+#-c http
+
+dbt-snowflake
+snowflake-connector-python[secure-local-storage]
