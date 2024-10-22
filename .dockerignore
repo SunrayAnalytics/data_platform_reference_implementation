@@ -1,0 +1,9 @@
+bin/
+logs/
+.python-version
+.git
+.gitignore
+.env
+env.example
+requirements.txt
+Dockerfile
