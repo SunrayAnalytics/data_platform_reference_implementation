@@ -1,0 +1,38 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment: prod
+    concurrency: prod
+    permissions:
+      id-token: write # This is required for requesting the JWT
+      #  contents: read  # This is required for actions/checkout
+      actions: read
+      deployments: write
+      contents: write
+      attestations: write # Not sure is this needed
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure AWS credentials
+        id: creds
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_ROLE }}
+          role-session-name: GdpGithubOidcRole-CiCd
+          aws-region: ${{ vars.AWS_DEFAULT_REGION }}
+
+      - name: # TODO Get the repo, and the snowflake secret
+        run: |
+          ./bin/build_docker.sh
+          ./bin/push_docker.sh
+        env:
+          ECR_REPOSITORY_URL: ${{ vars.ECR_REPOSITORY_URL }}
+          SNOWFLAKE_SECRET: ${{ vars.SNOWFLAKE_SECRET }}
+          GITHUB_HASH: ${{ github.sha }}

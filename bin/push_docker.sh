@@ -6,7 +6,8 @@ set -e
 #    exit 1
 #fi
 
-DockerRepository="184065244952.dkr.ecr.eu-west-1.amazonaws.com/reference_implementation"
+DockerRepository="${ECR_REPOSITORY_URL:-184065244952.dkr.ecr.eu-west-1.amazonaws.com/sunrayanalytics-data_platform_reference_implementation}"
+
 CurrentRevision=$(git rev-parse --short HEAD)
 aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin ${DockerRepository}:${CurrentRevision}
 
