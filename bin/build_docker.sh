@@ -14,6 +14,8 @@ CurrentRevision=$(git rev-parse --short HEAD)
 DockerRepository="${ECR_REPOSITORY_URL:-184065244952.dkr.ecr.eu-west-1.amazonaws.com/sunrayanalytics-data_platform_reference_implementation}"
 SecretKey="${SNOWFLAKE_SECRET:-snowflake-db20241021074242203800000001}"
 
+aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin ${DockerRepository}:${CurrentRevision}
+
 SecretValue=$(aws secretsmanager get-secret-value --secret-id $SecretKey| jq -r '.SecretString')
 
 SnowflakeAccount=$(echo $SecretValue | jq -r .account)
