@@ -8,7 +8,7 @@ on:
 jobs:
   deploy:
     name: deploy dbt
-    uses: SunrayAnalytics/data_platform/.github/workflows/deploy_dbt.yml@main
+    uses: SunrayAnalytics/data_platform/.github/workflows/deploy_dbt.yaml@main
     with:
       environment: prod
     secrets: inherit
