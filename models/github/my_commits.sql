@@ -1,1 +1,1 @@
-select author, "COMMIT" from {{ source('github', 'commits') }}
+select  author, "COMMIT" from {{ source('github', 'commits') }}
