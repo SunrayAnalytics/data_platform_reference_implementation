@@ -1,0 +1,29 @@
+[project]
+name = "data_platform_reference_implementation"
+version = "0.1.0"
+description = "Test Dagster Deployment"
+readme = "README.md"
+
+requires-python = "==3.10.*"
+
+classifiers = ["Private :: Do Not Upload"]
+dependencies = [
+    "dbt-snowflake>=1.4.1",
+    "snowflake-connector-python[secure-local-storage]>=2.8.1",
+]
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+#addopts = "-ra -q"
+testpaths = [
+    "tests",
+]
+env = [
+]
+
+[tool.uv]
+default-groups = ["dev"]
+
+[dependency-groups]
+dev = [
+]
